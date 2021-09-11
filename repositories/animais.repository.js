@@ -1,89 +1,66 @@
-import db from './db.js';
-
-async function insertAnimal(data) {
-    const conn = await db.connect();
-
+import Animal from '../models/animal.model.js';
+async function insertAnimal(animal) {
     try {
-        const sql = 'insert into animais (nome, tipo, proprietario_id) values ($1, $2, $3) RETURNING *;';
-        const res = await conn.query(sql, [data.nome, data.tipo, data.proprietario_id]);
-        return res.rows[0];
-    } catch (error) {
-        throw error;
-    } finally {
-        conn.release();
+        return await Animal.create(animal);
+    } catch (err) {
+        throw err;
     }
 }
 
-
-async function updateAnimal(id, data) {
-    const conn = await db.connect();
-
+async function updateAnimal(animalId, animal) {
     try {
-        const sql = 'update animais set nome = $1, tipo=$2, proprietario_id=$3 where animal_id= $4 RETURNING *;';
-        const res = await conn.query(sql, [data.nome, data.tipo, data.proprietario_id, id]);
-        return res.rows[0];
+        await Animal.update(animal, {
+            where: {
+                animalId
+            }
+        });
+        return await listarAnimalPorID(animalId);        
     } catch (error) {
         throw error;
-    } finally {
-        conn.release();
-    }
+    }       
 }
 
-async function deleteAnimal(id) {
-    const conn = await db.connect();
-
+async function deleteAnimal(animalId) {
     try {
-        const sql = 'delete from Animais where Animal_id = $1 RETURNING *;';
-        const res = await conn.query(sql, [id]);
-        return res.rows[0];
-    } catch (error) {
-        throw error;
-    } finally {
-        conn.release();
+        await Animal.destroy({
+            where: {
+                animalId
+            }
+        });
+    } catch (err) {
+        throw err;
     }
 }
 
 async function listarAnimais() {
-    const conn = await db.connect();
-
     try {
-        const sql = 'select * from Animais ;';
-        const res = await conn.query(sql);
-        return res.rows;
-    } catch (error) {
+        return await Animal.findAll();
+    }
+    catch (error) {
         throw error;
-    } finally {
-        conn.release();
+    }
+   
+}
+
+async function listarAnimalPorID(animalId) {
+    try {
+        return await  Animal.findByPk(animalId);
+    } catch (err) {
+        throw err;
+    } 
+}
+
+async function listarAnimalPorProprietarioID(proprietarioId) {
+    try {
+        return await Animal.findAll({
+            where: {
+                proprietario_id: proprietarioId
+            }
+        });
+    }
+    catch (error) {
+        throw error;
     }
 }
 
-async function listarAnimalPorID(id) {
-    const conn = await db.connect();
-
-    try {
-        const sql = 'select * from Animais where Animal_id = $1;';
-        const res = await conn.query(sql, [id]);
-        return res.rows[0];
-    } catch (error) {
-        throw error;
-    } finally {
-        conn.release();
-    }
-}
-
-async function listarAnimalPorProprietarioID(id) {
-    const conn = await db.connect();
-
-    try {
-        const sql = 'select * from animais where proprietario_id= $1;';
-        const res = await conn.query(sql, [id]);
-        return res.rows;
-    } catch (error) {
-        throw error;
-    } finally {
-        conn.release();
-    }
-}
-
-
-export default { insertAnimal, updateAnimal, deleteAnimal, listarAnimais, listarAnimalPorID, listarAnimalPorProprietarioID };
+export default { insertAnimal, updateAnimal, deleteAnimal, listarAnimais, listarAnimalPorID, listarAnimalPorProprietarioID};

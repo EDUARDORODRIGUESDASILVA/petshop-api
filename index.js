@@ -1,12 +1,13 @@
 
 import express from 'express';
 import winston from 'winston';
+
 import {proprietariosRouter} from './routes/proprietarios.routes.js';
 import {animaisRouter} from './routes/animais.routes.js';
-import dotenv from 'dotenv';
-import {  handleError } from './util/error.handler.js';
+import {servicosRouter} from './routes/servicos.routes.js';
+import {handleError} from './util/error.handler.js';
 
-dotenv.config();
+
 const app = express();
 
 global.logger = winston.createLogger({
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json());
 app.use('/proprietario', proprietariosRouter );
 app.use('/animal', animaisRouter );
+app.use('/servico', servicosRouter );
 
 
 app.get('/', function (req, res) {

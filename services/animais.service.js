@@ -5,27 +5,24 @@ async function createAnimal(data) {
 }
 
 async function updateAnimal(id, data) {
-  return  await AnimaisRepository.updateAnimal(id, data);  
+  return await AnimaisRepository.updateAnimal(id, data);
 }
 
-async function deleteAnimal(id) {  
-  return  await AnimaisRepository.deleteAnimal(id);  
+async function deleteAnimal(id) {
+  return await AnimaisRepository.deleteAnimal(id);
 }
 
-
-async function listarAnimais() {  
-  return  await AnimaisRepository.listarAnimais();  
+async function listarAnimais() {
+  return await AnimaisRepository.listarAnimais();
 }
 
 async function listarAnimalPorID(id) {
-  return  await AnimaisRepository.listarAnimalPorID(id);
+  return await AnimaisRepository.listarAnimalPorID(id);
 }
 
 async function listarAnimalPorProprietarioID(id) {
-    return  await AnimaisRepository.listarAnimalPorProprietarioID(id);
-  }
+  return await AnimaisRepository.listarAnimalPorProprietarioID(id);
+}
 
-
-
-
-export default {createAnimal, updateAnimal, deleteAnimal, listarAnimais, listarAnimalPorID, listarAnimalPorProprietarioID};
+export default { createAnimal, updateAnimal, deleteAnimal, listarAnimais,
+  listarAnimalPorID, listarAnimalPorProprietarioID };

@@ -1,6 +1,5 @@
-
 class ErrorHandler extends Error {
-  constructor (statusCode, message) {
+  constructor(statusCode, message) {
     super();
     this.statusCode = statusCode;
     this.message = message;
@@ -9,11 +8,11 @@ class ErrorHandler extends Error {
 
 const handleError = (err, res) => {
   const { statusCode, message } = err;
-  global.logger.error({statusCode,  message });  
+  global.logger.error({ statusCode, message });
   res.status(statusCode).json({
-    status: 'error',
+    status: "error",
     statusCode,
-    message
+    message,
   });
 };
 
