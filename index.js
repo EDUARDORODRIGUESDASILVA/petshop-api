@@ -5,6 +5,9 @@ import winston from 'winston';
 import {proprietariosRouter} from './routes/proprietarios.routes.js';
 import {animaisRouter} from './routes/animais.routes.js';
 import {servicosRouter} from './routes/servicos.routes.js';
+import {postsRouter} from './routes/posts.routes.js';
+import {comentariosRouter} from './routes/comentarios.routes.js';
+
 import {handleError} from './util/error.handler.js';
 
 
@@ -38,6 +41,8 @@ app.use(express.json());
 app.use('/proprietario', proprietariosRouter );
 app.use('/animal', animaisRouter );
 app.use('/servico', servicosRouter );
+app.use('/post', postsRouter );
+app.use('/comentario', comentariosRouter );
 
 
 app.get('/', function (req, res) {

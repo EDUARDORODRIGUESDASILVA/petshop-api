@@ -1,1 +1,2 @@
 DB_CONNECTION_STRING=urlaqui
+MONGO_DB_CONNECTION_STRING=mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&writeConcern=majority
